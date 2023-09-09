@@ -71,23 +71,29 @@
         background-color: white;
         transition: .4s;
       }
-
       input:checked + .slider {
         background-color: #2196F3;
       }
-
       input:checked + .slider:before {
         transform: translateX(26px);
       }
-
       /* Rounded sliders */
       .slider.round {
         border-radius: 34px;
       }
-
       .slider.round:before {
         border-radius: 50%;
       }
+      .toggle-label {
+        margin-right: 10px;
+        line-height: 34px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-right: 10px;
+        display: flex;
+        align-items: center; 
+      }
+
 
     </style>
   </head>
@@ -114,12 +120,16 @@
 
     </div>
     <button id="changeFont">Change font</button>
-    
-    <!-- Toggle selection -->
-    <label class="switch">
-      <input type="checkbox" id="toggleSelectionMode">
-      <span class="slider round"></span>
+
+    <label class="toggle-label">
+      Toggle Selection Mode:    
+      <div class="switch">
+          <input type="checkbox" id="toggleSelectionMode">
+          <span class="slider round"></span>
+      </div>
     </label>
+  
+  
     <script src="popup.js"></script>
   </body>
 </html>

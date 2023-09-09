@@ -46,10 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 });
 
-// Toggling selection mode
-document.getElementById('toggleSelectionMode').addEventListener('change', (event) => {
+  // Toggling selection mode
+  document.getElementById('toggleSelectionMode').addEventListener('change', (event) => {
   console.log('Sending toggle-selection-mode message'); // debug
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { type: "toggle-selection-mode", value: event.target.checked });
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, { type: "toggle-selection-mode", value: event.target.checked });
+    });
   });
 });
+
