@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttonContainer = document.getElementById("buttonContainer");
   const colorSelector = document.getElementById("colorSelector");
   const selectedColorText = document.getElementById("selectedColor");
-  const changeFont = document.getElementById("changeFont");
   const fontSelector = document.getElementById("fontSelector")
 
   // Handle button clicks and color selection
@@ -38,13 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize the selected color text with the initial value
   selectedColorText.textContent = `Selected Color: ${colorSelector.value}`;
-
-  changeFont.addEventListener("click", (event) => {
-    const font = "cursive"
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { type: "change-font", value: font });
-    });
-  })
 
 // Add an event listener for the 'change' event
 fontSelector.addEventListener('change', function () {
