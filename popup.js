@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const colorSelector = document.getElementById("colorSelector");
   const selectedColorText = document.getElementById("selectedColor");
   const changeFont = document.getElementById("changeFont");
+  const fontSelector = document.getElementById("fontSelector")
 
   // Handle button clicks and color selection
   buttonContainer.addEventListener("click", (event) => {
@@ -44,7 +45,16 @@ document.addEventListener("DOMContentLoaded", () => {
       chrome.tabs.sendMessage(tabs[0].id, { type: "change-font", value: font });
     });
   })
+
+// Add an event listener for the 'change' event
+fontSelector.addEventListener('change', function () {
+  const selectedFont = fontSelector.value;
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, { type: "font-selector", value: selectedFont });
+  });
 });
+});
+
 
   // Toggling selection mode
   document.getElementById('toggleSelectionMode').addEventListener('change', (event) => {

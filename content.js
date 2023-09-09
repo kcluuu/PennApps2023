@@ -83,6 +83,8 @@ chrome.runtime.onMessage.addListener((message) => {
         changeBackgroundColor(message.value);
     } else if (message.type == 'change-font') {
         changeFont(message.value);
+    } else if (message.type == 'font-selector') {
+        changeFont(message.value);
     }
 });
 
