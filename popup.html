@@ -18,25 +18,42 @@
         background-color: papayawhip;
         /* Remove margin and set background color for the entire popup */
       }
-
       /* Apply styles to the buttons */
       button {
         height: 100px;
         width: 100px;
         cursor: pointer;
       }
+      .color-selector {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .selected-color {
+        font-weight: bold;
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <div class="popup-container">
-      <!-- Place the buttons within the popup container -->
-      <div class="button-table">
-        <button id="changeColorRed">Change to Red</button>
-        <button id="changeColorBlue">Change to Blue</button>
-        <button id="changeColorGreen">Change to Green</button>
-        <button id="changeColorYellow">Change to Yellow</button>
-      </div>
+      <div id="buttonContainer" class="button-table">
+        <button id="changeColorRed" data-color="red">Change to Red</button>
+        <button id="changeColorBlue" data-color="blue">Change to Blue</button>
+        <button id="changeColorGreen" data-color="green">Change to Green</button>
+        <button id="changeColorYellow" data-color="yellow">Change to Yellow</button>
+      </div>      
+
+      <!-- Color selector input -->
+      <input
+        type="color"
+        class="color-selector"
+        id="colorSelector"
+        value="#ff0000"
+      />
+
+      <!-- Display the selected color -->
+      <div class="selected-color" id="selectedColor">Selected Color: ${selectedColor}</div>
     </div>
     <script src="popup.js"></script>
   </body>
