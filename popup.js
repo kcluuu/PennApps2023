@@ -35,3 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize the selected color text with the initial value
   selectedColorText.textContent = `Selected Color: ${colorSelector.value}`;
 });
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("changeFont");
+    button.addEventListener("click", () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, { type: "changeFont" });
+      });
+    });
+  });
