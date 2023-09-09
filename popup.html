@@ -84,13 +84,16 @@
       .slider.round:before {
         border-radius: 50%;
       }
-      label[for="toggleSelectionMode"] {
+      .toggle-label {
         margin-right: 10px;
-        align-items: center;
         line-height: 34px;
-        margin-top: -10px;
-        margin-bottom: 2px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-right: 10px;
+        display: flex;
+        align-items: center; 
       }
+
 
     </style>
   </head>
@@ -118,15 +121,14 @@
     </div>
     <button id="changeFont">Change font</button>
 
-    <div style="display: flex; align-items: center;">
-      <label>
-          Toggle Selection Mode
-          <div class="switch">
-              <input type="checkbox" id="toggleSelectionMode">
-              <span class="slider round"></span>
-          </div>
-      </label>
-    </div>
+    <label class="toggle-label">
+      Toggle Selection Mode:    
+      <div class="switch">
+          <input type="checkbox" id="toggleSelectionMode">
+          <span class="slider round"></span>
+      </div>
+    </label>
+  
   
     <script src="popup.js"></script>
   </body>
