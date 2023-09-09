@@ -21,14 +21,14 @@
 //   }
 // });
 
-
+let currentColor = '#ffffff';
 let selectionMode = false;
 let mainContainers = ['#content', 'header', 'footer', '.sidebar'];
 
 // Function to change background color
 function changeBackgroundColor(color) {
     document.body.style.backgroundColor = color;
-
+    currentColor = color;
     mainContainers.forEach((selector) => {
         const elements = document.querySelectorAll(selector);
         elements.forEach((element) => {
