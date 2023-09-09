@@ -53,5 +53,3 @@ document.addEventListener("DOMContentLoaded", () => {
         chrome.tabs.sendMessage(tabs[0].id, { type: "toggle-selection-mode", value: event.target.checked });
     });
   });
-});
-
