@@ -67,6 +67,10 @@ function handleElementSelection(event) {
     event.stopPropagation(); // Prevents the event from bubbling up
 }
 
+function changeFont(font) {
+    document.body.style.fontFamily = font;
+}
+
 // Add a click event listener for the entire document
 document.addEventListener('click', handleElementSelection);
 
@@ -77,6 +81,8 @@ chrome.runtime.onMessage.addListener((message) => {
         selectionMode = !selectionMode;
     } else if (message.type === 'change-color') {
         changeBackgroundColor(message.value);
+    } else if (message.type == 'change-font') {
+        changeFont(message.value);
     }
 });
 
