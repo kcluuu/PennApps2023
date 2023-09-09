@@ -13,36 +13,35 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedColorText.textContent = `Selected Color: ${color}`;
 
         // Set the color selector's value
-        colorSelector.value = `#${color}`;
-
-        // Update the color selector's appearance
-        colorSelector.style.background = `#${color}`;
+        colorSelector.value = color;
 
         // Send the color change message to the content script
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          chrome.tabs.sendMessage(tabs[0].id, { type: `change-color-${color}` });
+          chrome.tabs.sendMessage(tabs[0].id, { type: "change-color", value: color });
         });
       }
     }
   });
 
-  // Handle color selection
+  // Handle color selection from color picker
   colorSelector.addEventListener("input", () => {
     const selectedColor = colorSelector.value;
     selectedColorText.textContent = `Selected Color: ${selectedColor}`;
+
+    // Send the color change message to the content script
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "change-color", value: selectedColor });
+    });
   });
 
   // Initialize the selected color text with the initial value
   selectedColorText.textContent = `Selected Color: ${colorSelector.value}`;
 });
 
-
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("changeFont");
-    button.addEventListener("click", () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, { type: "changeFont" });
-      });
-    });
+// Toggling selection mode
+document.getElementById('toggleSelectionMode').addEventListener('change', (event) => {
+  console.log('Sending toggle-selection-mode message'); // debug
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "toggle-selection-mode", value: event.target.checked });
   });
+});

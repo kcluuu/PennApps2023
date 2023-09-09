@@ -1,5 +1,5 @@
 <html>
-  <title>Testing adding a title</title>
+  <title>Penn Apps Web Extension</title>
   <head>
     <style>
       .popup-container {
@@ -27,21 +27,78 @@
       .color-selector {
         width: 100%;
         margin-top: 10px;
+        outline: none;
+        border: none;
       }
       .selected-color {
         font-weight: bold;
         margin-top: 10px;
       }
+      /* The switch container */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      /* Hide default checkbox */
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      /* The slider */
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196F3;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+
     </style>
   </head>
   <body>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <div class="popup-container">
       <div id="buttonContainer" class="button-table">
-        <button id="changeColorRed" data-color="red">Change to Red</button>
-        <button id="changeColorBlue" data-color="blue">Change to Blue</button>
-        <button id="changeColorGreen" data-color="green">Change to Green</button>
-        <button id="changeColorYellow" data-color="yellow">Change to Yellow</button>
+        <button id="changeColorRed" data-color="#ff0000">Change to Red</button>
+        <button id="changeColorBlue" data-color="#0000ff">Change to Blue</button>
+        <button id="changeColorGreen" data-color="#00ff00">Change to Green</button>
+        <button id="changeColorYellow" data-color="#ffff00">Change to Yellow</button>
       </div>      
 
       <!-- Color selector input -->
@@ -49,13 +106,20 @@
         type="color"
         class="color-selector"
         id="colorSelector"
-        value="#ff0000"
+        value="#ffffff"
       />
 
       <!-- Display the selected color -->
-      <div class="selected-color" id="selectedColor">Selected Color: ${selectedColor}</div>
+      <div class="selected-color" id="selectedColor">Selected Color: </div>
+
     </div>
     <button id="changeFont">Change font</button>
+    
+    <!-- Toggle selection -->
+    <label class="switch">
+      <input type="checkbox" id="toggleSelectionMode">
+      <span class="slider round"></span>
+    </label>
     <script src="popup.js"></script>
   </body>
 </html>
