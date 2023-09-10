@@ -74,7 +74,7 @@ fontSelector.addEventListener('change', function () {
     });
   });
 
-  const API_ENDPOINT = "https://metaphor.systems/search";
+  const API_ENDPOINT = "https://api.metaphor.systems/search";
   const API_KEY = "87efd511-2e2e-4d02-8c5b-b8f81b129f5b";
   const searchButton = document.getElementById("searchButton");
 
@@ -84,27 +84,28 @@ function displayResults(results) {
   console.log(results);
 }
 
-  document.getElementById('searchButton').addEventListener('click', function() {
-    let query = document.getElementById('searchTextbox').value;
+document.getElementById('searchButton').addEventListener('click', function() {
+  let query = document.getElementById('searchTextbox').value;
+  
+  fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY
+    },
+    body: JSON.stringify({ query: query })
+  })
+  .then(response => response.json())
+  .then(data => {
+    let resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = ''; // clear previous results
     
-    fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY
-      },
-      body: JSON.stringify({ query: query })
-    })
-    .then(response => response.json())
-    .then(data => {
-      let resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = ''; // clear previous results
-      
-      data.forEach(item => {
-        resultsDiv.innerHTML += `<p><a href="${item.url}" target="_blank">${item.title}</a></p>`;
-      });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    // Convert data to a formatted JSON string and display it.
+    let jsonString = JSON.stringify(data, null, 2);
+    resultsDiv.textContent = jsonString;
+    
+  })
+  .catch(error => {
+    console.error('Error:', error);
   });
+});
