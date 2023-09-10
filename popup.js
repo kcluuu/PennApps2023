@@ -78,12 +78,6 @@ fontSelector.addEventListener('change', function () {
   const API_KEY = "87efd511-2e2e-4d02-8c5b-b8f81b129f5b";
   const searchButton = document.getElementById("searchButton");
 
-function displayResults(results) {
-  // Convert results into DOM elements and display in the popup.
-  // For debugging, you might just do:
-  console.log(results);
-}
-
 document.getElementById('searchButton').addEventListener('click', function() {
   let query = document.getElementById('searchTextbox').value;
   
@@ -109,3 +103,73 @@ document.getElementById('searchButton').addEventListener('click', function() {
     console.error('Error:', error);
   });
 });
+
+const API_ENDPOINT_SIMILAR = "https://api.metaphor.systems/findSimilar";
+
+// Utility function to extract domain from a URL
+function getDomain(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    return a.hostname;
+}
+
+document.getElementById('findSimilarButton').addEventListener('click', function() {
+    
+    // First, get the current tab's URL.
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        let currentTabURL = tabs[0].url;
+        let currentDomain = getDomain(currentTabURL);
+        
+        fetch(API_ENDPOINT_SIMILAR, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY
+            },
+            body: JSON.stringify({
+                url: currentTabURL,
+                excludeDomains: [currentDomain] // exclude the current domain
+            }) 
+        })
+        .then(response => response.json())
+        // .then(data => {
+        //     let resultsDiv = document.getElementById('similarLinksResults');
+            
+        //     // Display the filtered results
+        //     resultsDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        // })
+
+        .then(data => {
+          let resultsDiv = document.getElementById('similarLinksResults');
+          
+          if (data && data.results) {
+              // Create an unordered list element
+              let ulElement = document.createElement('ul');
+      
+              // Loop through the results and create a list item for each
+              data.results.forEach(item => {
+                  let liElement = document.createElement('li');
+                  let aElement = document.createElement('a');
+      
+                  aElement.href = item.url;
+                  aElement.target = "_blank"; // to open in a new tab
+                  aElement.innerText = item.title;
+      
+                  liElement.appendChild(aElement);
+                  ulElement.appendChild(liElement);
+              });
+      
+              resultsDiv.innerHTML = ''; // clear previous results
+              resultsDiv.appendChild(ulElement);
+          } else {
+              console.error("Unexpected API response structure. 'results' key not found.");
+              resultsDiv.innerHTML = '<p>No results found.</p>';
+          }
+      })      
+
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+

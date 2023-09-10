@@ -19,7 +19,7 @@
       }
     },
     "permissions": ["scripting", "activeTab", "contentSettings", "storage", "webRequest",
-    "https://metaphor.systems/*"],
+    "https://metaphor.systems/*", "tabs"],
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
