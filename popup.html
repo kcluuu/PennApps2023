@@ -3,7 +3,7 @@
   <head>
     <style>
       .popup-container {
-        width: 250px; /* Set the desired width for your popup */
+        width: 240px; /* Set the desired width for your popup */
         padding-top: 30px;
         padding-right: 30px;
         padding-bottom: 30px;
@@ -116,11 +116,43 @@
         display: flex;
         justify-content: 20px;
       }
+      .h1 {
+        color: black;
+        font-family: Helvetica, sans-serif;
+        font-size: 30px;
+        text-align: center;
+        align-items: center;
+        padding: 15px;
+      }
+      .h1-table {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .label-and-icon {
+  display: flex; /* Use flexbox to arrange items horizontally */
+  align-items: center; /* Vertically center the items */
+  flex-direction: column;
+  text-align: center;
+}
+
+.label-and-icon img {
+  width: 48px; /* Set the width of the icon */
+  height: 48px; /* Set the height of the icon */
+  margin-right: 8px; /* Add some spacing between the icon and label */
+}
+
+.label {
+  font-size: 20px; /* Set the font size of the label text */
+}
 
     </style>
   </head>
   <body>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="label-and-icon">
+      <img src="images/icon-48.png" alt="Icon">
+      <span class="label">LensEd</span>
+    </div>
     <div class="popup-container">
       <div id="buttonContainer" class="button-table">
         <button id="changeColorDefault" background-color="#ffffff" font-color="#000000">Default</button>
