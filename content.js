@@ -67,8 +67,18 @@ function handleElementSelection(event) {
     event.stopPropagation(); // Prevents the event from bubbling up
 }
 
-function changeFont(font) {
-    document.body.style.fontFamily = font;
+function changeFontColor(color) {
+    document.body.style.color = color;
+    mainContainers.forEach((selector) => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((element) => {
+            element.style.color = color;
+            // const childMedia = element.querySelectorAll('img, video');
+            // childMedia.forEach((mediaElement) => {
+            //     mediaElement.style.backgroundColor = 'initial'; // Or any default value
+            // });
+        });
+    });
 }
 
 // Add a click event listener for the entire document
@@ -82,7 +92,9 @@ chrome.runtime.onMessage.addListener((message) => {
     } else if (message.type === 'change-color') {
         changeBackgroundColor(message.value);
     } else if (message.type == 'font-selector') {
-        changeFont(message.value);
+        document.body.style.fontFamily = message.value;
+    } else if (message.type == 'change-font-color') {
+        document.body.style.color = message.value;
     }
 });
 

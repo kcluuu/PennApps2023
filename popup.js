@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const colorSelector = document.getElementById("colorSelector");
   const selectedColorText = document.getElementById("selectedColor");
   const fontSelector = document.getElementById("fontSelector")
+  const fontColorSelector = document.getElementById("fontColorSelector")
 
   // Handle button clicks and color selection
   buttonContainer.addEventListener("click", (event) => {
@@ -37,6 +38,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize the selected color text with the initial value
   selectedColorText.textContent = `Selected Color: ${colorSelector.value}`;
+
+
+  // Handle color selection from color picker for font
+  fontColorSelector.addEventListener("input", () => {
+    const fontSelectedColor = fontColorSelector.value;
+    // fontSelecterColor.textContent = `Selected Color: ${selectedColor}`;
+
+    // Send the color change message to the content script
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "change-font-color", value: fontSelectedColor });
+    });
+  });
+  // fontSelectedColorText.textContent = `Selected Color: ${colorSelector.value}`;
 
 // Add an event listener for the 'change' event
 fontSelector.addEventListener('change', function () {
