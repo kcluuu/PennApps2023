@@ -72,9 +72,25 @@ chrome.runtime.onMessage.addListener((message) => {
     } else if (message.type == 'change-font-color') {
         document.body.style.color = message.value;
         const links = document.querySelectorAll('a');
+        const h1s = document.querySelectorAll('h1');
+        const h2s = document.querySelectorAll('h2');
+        const h3s = document.querySelectorAll('h3');
+        const h4s = document.querySelectorAll('h4');
         links.forEach(function (link) {
             link.style.color = message.value;
-          });
+        });
+        h1s.forEach(function (h1) {
+            h1.style.color = message.value;
+        });
+        h2s.forEach(function (h2) {
+            h2.style.color = message.value;
+        });
+        h3s.forEach(function (h3) {
+            h3.style.color = message.value;
+        });
+        h4s.forEach(function (h4) {
+            h4.style.color = message.value;
+        });
     }
 });
 
