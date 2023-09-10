@@ -2,24 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttonContainer = document.getElementById("buttonContainer");
   const colorSelector = document.getElementById("colorSelector");
   const selectedColorText = document.getElementById("selectedColor");
-  const changeFont = document.getElementById("changeFont");
   const fontSelector = document.getElementById("fontSelector")
+  const fontColorSelector = document.getElementById("fontColorSelector")
+  const fontSelectedColorText = document.getElementById("fontColorSelected")
 
   // Handle button clicks and color selection
   buttonContainer.addEventListener("click", (event) => {
     const button = event.target;
     if (button.tagName === "BUTTON") {
-      const color = button.getAttribute("data-color");
-      if (color) {
+      const backgroundColor = button.getAttribute("background-color");
+      const fontColor = button.getAttribute("font-color")
+      if (backgroundColor && fontColor) {
         // Update the selected color text
-        selectedColorText.textContent = `Selected Color: ${color}`;
+        selectedColorText.textContent = `Selected Color: ${backgroundColor}`;
+        fontSelectedColorText.textContent = `Selected Color: ${fontColor}`
 
         // Set the color selector's value
-        colorSelector.value = color;
+        colorSelector.value = backgroundColor;
+        fontColorSelector.value = fontColor;
 
         // Send the color change message to the content script
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          chrome.tabs.sendMessage(tabs[0].id, { type: "change-color", value: color });
+          chrome.tabs.sendMessage(tabs[0].id, { type: "change-color", value: backgroundColor });
+          chrome.tabs.sendMessage(tabs[0].id, { type: "change-font-color", value: fontColor });
         });
       }
     }
@@ -37,14 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Initialize the selected color text with the initial value
-  selectedColorText.textContent = `Selected Color: ${colorSelector.value}`;
+  selectedColorText.textContent = `Selected Background Color: ${colorSelector.value}`;
 
-  changeFont.addEventListener("click", (event) => {
-    const font = "cursive"
+
+  // Handle color selection from color picker for font
+  fontColorSelector.addEventListener("input", () => {
+    const fontSelectedColor = fontColorSelector.value;
+    fontSelectedColorText.textContent = `Selected Color: ${fontSelectedColor}`;
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { type: "change-font", value: font });
+      chrome.tabs.sendMessage(tabs[0].id, { type: "change-font-color", value: fontSelectedColor });
     });
-  })
+  });
+  fontSelectedColorText.textContent = `Selected Font Color: ${fontColorSelector.value}`;
 
 // Add an event listener for the 'change' event
 fontSelector.addEventListener('change', function () {
