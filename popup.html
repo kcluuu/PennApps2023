@@ -95,7 +95,13 @@
         display: flex;
         align-items: center; 
       }
-      
+      #searchTextbox {
+        width: 90%;
+      }
+      .button-row {
+        display: flex;
+        justify-content: 20px;
+      }
 
     </style>
   </head>
@@ -149,11 +155,15 @@
       </div>
     </label>
   
-    <input type="text" id="searchTextbox" placeholder="Enter search query...">
-    <button id="searchButton">Search</button>
-    <div id="results"></div>
-
-    <button id="findSimilarButton">Find Similar Links</button>
+    <div class="button-row"> <!-- Start of new container div -->
+      <input type="text" id="searchTextbox" placeholder="Enter search query...">
+      <button id="searchButton">Search</button>
+      <div id="results"></div>
+      <button id="findSimilarButton">Find Similar Links</button>
+    </div> 
+    <br>
+    <br>
+    <label for="similarLinksResults"> List of Links: </label>
     <div id="similarLinksResults"></div>
     <script src="popup.js"></script>
   </body>

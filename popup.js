@@ -65,7 +65,6 @@ fontSelector.addEventListener('change', function () {
 });
 });
 
-
   // Toggling selection mode
   document.getElementById('toggleSelectionMode').addEventListener('change', (event) => {
   console.log('Sending toggle-selection-mode message'); // debug
@@ -90,15 +89,42 @@ document.getElementById('searchButton').addEventListener('click', function() {
     body: JSON.stringify({ query: query })
   })
   .then(response => response.json())
+  // .then(data => {
+  //   let resultsDiv = document.getElementById('results');
+  //   resultsDiv.innerHTML = ''; // clear previous results
+    
+  //   // Convert data to a formatted JSON string and display it.
+  //   let jsonString = JSON.stringify(data, null, 2);
+  //   resultsDiv.textContent = jsonString;
+    
+  // })
   .then(data => {
-    let resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = ''; // clear previous results
+    let resultsDiv = document.getElementById('similarLinksResults');
     
-    // Convert data to a formatted JSON string and display it.
-    let jsonString = JSON.stringify(data, null, 2);
-    resultsDiv.textContent = jsonString;
-    
-  })
+    if (data && data.results) {
+        // Create an unordered list element
+        let ulElement = document.createElement('ul');
+
+        // Loop through the results and create a list item for each
+        data.results.forEach(item => {
+            let liElement = document.createElement('li');
+            let aElement = document.createElement('a');
+
+            aElement.href = item.url;
+            aElement.target = "_blank"; // to open in a new tab
+            aElement.innerText = item.title;
+
+            liElement.appendChild(aElement);
+            ulElement.appendChild(liElement);
+        });
+
+        resultsDiv.innerHTML = ''; // clear previous results
+        resultsDiv.appendChild(ulElement);
+    } else {
+        console.error("Unexpected API response structure. 'results' key not found.");
+        resultsDiv.innerHTML = '<p>No results found.</p>';
+    }
+})
   .catch(error => {
     console.error('Error:', error);
   });
@@ -132,13 +158,6 @@ document.getElementById('findSimilarButton').addEventListener('click', function(
             }) 
         })
         .then(response => response.json())
-        // .then(data => {
-        //     let resultsDiv = document.getElementById('similarLinksResults');
-            
-        //     // Display the filtered results
-        //     resultsDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-        // })
-
         .then(data => {
           let resultsDiv = document.getElementById('similarLinksResults');
           
@@ -165,8 +184,7 @@ document.getElementById('findSimilarButton').addEventListener('click', function(
               console.error("Unexpected API response structure. 'results' key not found.");
               resultsDiv.innerHTML = '<p>No results found.</p>';
           }
-      })      
-
+      })
         .catch(error => {
             console.error('Error:', error);
         });
