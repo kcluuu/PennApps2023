@@ -76,6 +76,10 @@ chrome.runtime.onMessage.addListener((message) => {
         const h2s = document.querySelectorAll('h2');
         const h3s = document.querySelectorAll('h3');
         const h4s = document.querySelectorAll('h4');
+        const caption = document.querySelectorAll('p')
+        caption.forEach(function (t) {
+            t.style.color = message.value;
+        });
         links.forEach(function (link) {
             link.style.color = message.value;
         });
