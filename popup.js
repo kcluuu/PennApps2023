@@ -10,17 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
   buttonContainer.addEventListener("click", (event) => {
     const button = event.target;
     if (button.tagName === "BUTTON") {
-      const color = button.getAttribute("data-color");
-      if (color) {
+      const backgroundColor = button.getAttribute("background-color");
+      const fontColor = button.getAttribute("font-color")
+      if (backgroundColor && fontColor) {
         // Update the selected color text
-        selectedColorText.textContent = `Selected Color: ${color}`;
+        selectedColorText.textContent = `Selected Color: ${backgroundColor}`;
+        fontSelectedColorText.textContent = `Selected Color: ${fontColor}`
 
         // Set the color selector's value
-        colorSelector.value = color;
+        colorSelector.value = backgroundColor;
+        fontColorSelector.value = fontColor;
 
         // Send the color change message to the content script
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          chrome.tabs.sendMessage(tabs[0].id, { type: "change-color", value: color });
+          chrome.tabs.sendMessage(tabs[0].id, { type: "change-color", value: backgroundColor });
+          chrome.tabs.sendMessage(tabs[0].id, { type: "change-font-color", value: fontColor });
         });
       }
     }
