@@ -3,37 +3,51 @@
   <head>
     <style>
       .popup-container {
-        width: 300px; /* Set the desired width for your popup */
-        padding: 20px; /* Add padding for better appearance */
+        width: 250px; /* Set the desired width for your popup */
+        padding-top: 30px;
+        padding-right: 30px;
+        padding-bottom: 30px;
+        padding-left: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: rgb(236, 245, 255);
       }
       .button-table {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-gap: 30px 50px;
       }
       body {
-        background-color: papayawhip;
+        background-color: rgb(236, 245, 255);
         width: 300px;
-        font-family: Arial, sans-serif;
+        padding-top: 30px;
+        padding-right: 30px;
+        padding-bottom: 30px;
+        padding-left: 30px;
+        align-items: center;
+        font-family: Helvetica, sans-serif;
+        font-size: 15px;
         /* Remove margin and set background color for the entire popup */
       }
       /* Apply styles to the buttons */
       button {
-        height: 70px;
-        width: 100px;
+        height: 80px;
+        width: 120px;
+        font-family: Helvetica, sans-serif;
+        font-size: 15px;
+        border-radius: 15px;
+        border: 3px solid rgb(175, 180, 204);
         cursor: pointer;
       }
       .color-selector {
         width: 100%;
-        margin-top: 10px;
+        height: 50px;
+        margin-top: 30px;
+        border: 3px solid rgb(175, 180, 204);
         outline: none;
-        border: none;
       }
       .selected-color {
-        font-weight: bold;
         margin-top: 10px;
       }
       /* The switch container */
