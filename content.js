@@ -71,6 +71,10 @@ chrome.runtime.onMessage.addListener((message) => {
         document.body.style.fontFamily = message.value;
     } else if (message.type == 'change-font-color') {
         document.body.style.color = message.value;
+        const links = document.querySelectorAll('a');
+        links.forEach(function (link) {
+            link.style.color = message.value;
+          });
     }
 });
 
