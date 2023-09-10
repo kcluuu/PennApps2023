@@ -18,7 +18,8 @@
             "128": "images/icon-128.png"
       }
     },
-    "permissions": ["scripting", "activeTab", "contentSettings", "storage"],
+    "permissions": ["scripting", "activeTab", "contentSettings", "storage", "webRequest",
+    "https://metaphor.systems/*"],
     "content_scripts": [
         {
             "matches": ["<all_urls>"],

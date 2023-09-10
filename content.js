@@ -1,26 +1,3 @@
-// chrome.runtime.onMessage.addListener((message) => {
-//   if (message.type == "change-color") {
-//     document.body.style.backgroundColor = message.value;
-      
-//       // A list of selectors for main containers you'd like to target.
-//       // You'll need to adjust this list depending on the website structure.
-//       const mainContainers = ['#content', 'header', 'footer', '.sidebar'];
-
-//       mainContainers.forEach((selector) => {
-//           const elements = document.querySelectorAll(selector);
-//           elements.forEach((element) => {
-//               element.style.backgroundColor = message.value;
-
-//               // Ensure child images and videos aren't affected
-//               const childMedia = element.querySelectorAll('img, video');
-//               childMedia.forEach((mediaElement) => {
-//                   mediaElement.style.backgroundColor = 'initial'; // Or any default value
-//               });
-//           });
-//       });
-//   }
-// });
-
 let currentColor = '#ffffff';
 let selectionMode = false;
 let mainContainers = ['#content', 'header', 'footer', '.sidebar'];
@@ -77,7 +54,6 @@ document.addEventListener('click', handleElementSelection);
 // Respond to messages from the popup
 chrome.runtime.onMessage.addListener((message) => {
     if (message.type === 'toggle-selection-mode') {
-        console.log('Received toggle-selection-mode message'); // debug
         selectionMode = !selectionMode;
     } else if (message.type === 'change-color') {
         changeBackgroundColor(message.value);
@@ -88,3 +64,31 @@ chrome.runtime.onMessage.addListener((message) => {
     }
 });
 
+// function transcribeAudio(audioBlob) {
+//   const apiKey = "YOUR_API_KEY";
+//   const uri = `https://speech.googleapis.com/v1/speech:recognize?key=${apiKey}`;
+//   const data = {
+//       config: {
+//           encoding: "LINEAR16",
+//           sampleRateHertz: 16000,
+//           languageCode: "en-US",
+//       },
+//       audio: {
+//           content: audioBlob // This should be base64 encoded data.
+//       }
+//   };
+
+//   fetch(uri, {
+//       method: "POST",
+//       body: JSON.stringify(data),
+//       headers: {
+//           "Content-Type": "application/json"
+//       }
+//   }).then(response => response.json()).then(data => {
+//       // Process the results here.
+//       const transcription = data.results[0].alternatives[0].transcript;
+//       console.log(transcription);
+//   }).catch(error => {
+//       console.error("There was an error transcribing the audio:", error);
+//   });
+// }
